@@ -5,6 +5,7 @@ target/
 !**/src/test/**
 mvnw
 mvnw.cmd
+src/main/java/com/kitchen/demo/test.java
 
 
 ### STS ###
