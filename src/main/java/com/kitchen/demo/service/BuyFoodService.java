@@ -22,13 +22,13 @@ public interface BuyFoodService {
 
     void cancelOrderDetail(Buyfood detail);
 
-    List<Buyfood> loadAll();
-
     List<String> loadAllOnlyOne();
 
 
     void delOrder(String orderId);
 
     int getBuyOrderCount(Integer cate1);
+
+    List<Buyfood> loadAll();
 
 }

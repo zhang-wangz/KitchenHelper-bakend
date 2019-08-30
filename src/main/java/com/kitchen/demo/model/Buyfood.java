@@ -1,15 +1,15 @@
 package com.kitchen.demo.model;
 
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.util.Objects;
+import javax.persistence.*;
+
 import lombok.Data;
 
 @Entity
 @Table(name = "buyfood")
 @Data
+@IdClass(BuyfoodId.class)
 public class Buyfood implements Serializable {
   private static final long serialVersionUID = 1L;
 
@@ -27,5 +27,7 @@ public class Buyfood implements Serializable {
   @Column(name = "status", nullable = false)
   private Integer status;
 
-  
+  public Buyfood() {
+
+  }
 }

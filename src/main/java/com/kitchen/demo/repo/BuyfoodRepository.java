@@ -1,5 +1,6 @@
 package com.kitchen.demo.repo;
 
+import com.kitchen.demo.model.BuyfoodId;
 import com.kitchen.demo.util.BaseException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -10,50 +11,38 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface BuyfoodRepository extends JpaRepository<Buyfood, String>, JpaSpecificationExecutor<Buyfood> {
+public interface BuyfoodRepository extends JpaRepository<Buyfood, BuyfoodId>{
+
+
+    List<Buyfood> findOrderByBuyOrderId(@Param("id") String id);
+
+
+    List<Buyfood> findBuyOrderByFoodId(@Param("id")String foodId);
 
 
     @Modifying
-    @Query(value = "from Buyfood b where b.BuyOrderId = :id")
-    List<Buyfood> loadBuyDetailByOrderId(@Param("id")String id);
-
-    @Modifying
-    @Query(value = "from Buyfood b where b.BuyOrderId = :id")
-    List<Buyfood> findOrderById(@Param("id") String id) throws BaseException;
-
-    @Modifying
-    @Query(value = "from Buyfood b where b.foodId = :id")
-    List<Buyfood> findBuyOrderByFoodId(@Param("id")String foodid);
-
-
-    @Modifying
-    @Query(value = "from Buyfood b where b.BuyOrderId = :id")
-    List<Buyfood> loadDetailByOrderId(@Param("id") String orderId);
-
-    @Modifying
-    @Query(value = "delete from Buyfood b where b.foodId = :foodId and b.BuyOrderId = :orderId")
+    @Query(value = "delete from buyfood b where b.food_id = :foodId and b.buy_order_id = :orderId",nativeQuery = true)
     void delOrderDetail(@Param("foodId") String foodId,@Param("orderId") String orderId);
 
     @Modifying
-    @Query(value = "delete from Buyfood b where b.foodId = :foodId and b.BuyOrderId = :orderId")
+    @Query(value = "delete from buyfood b where b.food_id = :foodId and b.buy_order_id = :orderId",nativeQuery = true)
     void deleteBuyfoodsByBuyOrderIdAndAndFoodId(@Param("foodId")String foodId,@Param("orderId")String orderId);
 
     @Modifying
-    @Query(value = "update FoodInfo b set b.foodNum = b.foodNum -:num where foodId =:foodId")
+    @Query(value = "update foodinfo b set b.food_num = b.food_num -:num where food_id =:foodId",nativeQuery = true)
     void updateFoodInfoByFoodId(@Param("num")Integer num,@Param("foodId")String foodId);
 
     List<Buyfood> findAll();
 
-
     @Modifying
-    @Query("select distinct buyOrderId from Buyfood")
+    @Query(value = "select distinct buy_order_id from buyfood",nativeQuery = true)
     List<String> loadAllOnlyOne();
 
     void deleteBuyfoodByBuyOrderId(String orderId);
 
 
     @Modifying
-    @Query(value = "from Buyfood b where b.status = :cate")
+    @Query(value = "select  count (buy_order_id) from buyfood b where b.status = :cate",nativeQuery = true)
     int getBuyOrderCount(@Param("cate") Integer cate1);
 
 

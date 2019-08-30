@@ -21,14 +21,14 @@ public class BuyFoodServiceimpl  implements BuyFoodService {
 
     public List<Buyfood> loadBuyDetailByOrderId(String orderId) {
 
-        return buyfoodRepository.loadBuyDetailByOrderId(orderId);
+        return buyfoodRepository.findOrderByBuyOrderId(orderId);
     }
 
 
     public  List<Buyfood> findOrderById(String id) throws BaseException {
 
 
-        return  buyfoodRepository.findOrderById(id);
+        return  buyfoodRepository.findOrderByBuyOrderId(id);
     }
 
     public  List<Buyfood> findBuyOrderByFoodId(String foodid){
@@ -36,8 +36,6 @@ public class BuyFoodServiceimpl  implements BuyFoodService {
         return  findBuyOrderByFoodId(foodid);
 
     }
-
-
 
     public List<Buyfood> loadDetailByOrderId(String orderId) {
 
@@ -77,11 +75,7 @@ public class BuyFoodServiceimpl  implements BuyFoodService {
         return  buyfoodRepository.getBuyOrderCount(cate1);
     }
 
-    public static void main(String[] args) {
-        BuyFoodServiceimpl buyFoodServiceimpl = new BuyFoodServiceimpl();
-        List<Buyfood> list = buyFoodServiceimpl.loadAll();
-        System.out.println(list.size());
-    }
+
 
 
 
