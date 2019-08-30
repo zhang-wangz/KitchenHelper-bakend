@@ -1,76 +1,83 @@
-package com.kitchen.demo.control;
+package com.kitchen.demo.service.impl;
 
-import model.BeanBuyFood;
-import model.BeanFoodOrder;
+
+import com.kitchen.demo.model.Buyfood;
+import com.kitchen.demo.repo.BuyfoodRepository;
+import com.kitchen.demo.service.BuyFoodService;
+import com.kitchen.demo.util.BaseException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import util.BaseException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
 
-import static util.HibernateUtil.getSession;
+@Service
+public class BuyFoodServiceimpl  implements BuyFoodService {
 
-public class BuyFoodController {
+    @Autowired
+    private BuyfoodRepository buyfoodRepository;
 
-    public List<BeanBuyFood> loadBuyDetailByOrderId(String orderId) {
+    public List<Buyfood> loadBuyDetailByOrderId(String orderId) {
         Session session = getSession();
         Transaction tx = session.beginTransaction();
-        Query query = session.createQuery("from BeanBuyFood b where b.BuyOrderId = :id");
+        Query query = session.createQuery("from Buyfood b where b.BuyOrderId = :id");
         query.setParameter("id", orderId);
-        List<BeanBuyFood> list = query.list();
+        List<Buyfood> list = query.list();
         tx.commit();
         session.close();
         return list;
     }
 
-    public  List<BeanBuyFood> findOrderById(String id) throws BaseException {
+    public  List<Buyfood> findOrderById(String id) throws BaseException {
 
         Session session = getSession();
         Transaction tx = session.beginTransaction();
-        Query query = session.createQuery("from BeanBuyFood b where b.BuyOrderId = :id");
+        Query query = session.createQuery("from Buyfood b where b.BuyOrderId = :id");
         query.setParameter("id", id);
         if(query.list().size()==0){
             throw new BaseException("�ɹ���������");
         }
-        List<BeanBuyFood> order  = query.list();
+        List<Buyfood> order  = query.list();
         tx.commit();
         session.close();
         return  order;
     }
 
-    public  List<BeanBuyFood> findBuyOrderByFoodId(String foodid){
+    public  List<Buyfood> findBuyOrderByFoodId(String foodid){
 
         Session session = getSession();
         Transaction tx = session.beginTransaction();
-        Query query = session.createQuery("from BeanBuyFood b where b.foodId = :id");
+        Query query = session.createQuery("from Buyfood b where b.foodId = :id");
         query.setParameter("id", foodid);
         if(query.list().size()==0) return null;
 
-        List<BeanBuyFood> order  = query.list();
+        List<Buyfood> order  = query.list();
         tx.commit();
         session.close();
         return  order;
+
     }
 
 
 
-    public List<BeanBuyFood> loadDetailByOrderId(String orderId) {
+    public List<Buyfood> loadDetailByOrderId(String orderId) {
         Session session = getSession();
         Transaction tx = session.beginTransaction();
-        Query query = session.createQuery("from BeanBuyFood b where b.BuyOrderId = :id");
+        Query query = session.createQuery("from Buyfood b where b.BuyOrderId = :id");
         query.setParameter("id", orderId);
-        List<BeanBuyFood> list = query.list();
+        List<Buyfood> list = query.list();
         tx.commit();
         session.close();
         return list;
     }
 
-    public void delOrderDetail(BeanBuyFood detail) {
-
+    @Override
+    public void delOrderDetail(Buyfood detail) {
         Session session = getSession();
         Transaction tx = session.beginTransaction();
-        Query query = session.createQuery("delete BeanBuyFood b where b.foodId = :foodId and b.BuyOrderId = :orderId");
+        Query query = session.createQuery("delete Buyfood b where b.foodId = :foodId and b.BuyOrderId = :orderId");
         query.setParameter("foodId", detail.getFoodId());
         query.setParameter("orderId", detail.getBuyOrderId());
         query.executeUpdate();
@@ -79,11 +86,12 @@ public class BuyFoodController {
         session.close();
     }
 
-    public void cancelOrderDetail(BeanBuyFood detail) {
+
+    public void cancelOrderDetail(Buyfood detail) {
 
         Session session = getSession();
         Transaction tx = session.beginTransaction();
-        Query query = session.createQuery("delete BeanBuyFood b where b.foodId = :foodId and b.BuyOrderId = :orderId");
+        Query query = session.createQuery("delete from  Buyfood b where b.foodId = :foodId and b.BuyOrderId = :orderId");
         query.setParameter("foodId", detail.getFoodId());
         query.setParameter("orderId", detail.getBuyOrderId());
         query.executeUpdate();
@@ -99,11 +107,11 @@ public class BuyFoodController {
     }
 
 
-    public List<BeanBuyFood> loadAll(){
-        List<BeanBuyFood> lsit = null;
+    public List<Buyfood> loadAll(){
+        List<Buyfood> lsit = null;
         Session session = getSession();
         Transaction tx = session.beginTransaction();
-        Query query = session.createQuery("from BeanBuyFood ");
+        Query query = session.createQuery("from Buyfood ");
         lsit = query.list();
         tx.commit();
         session.close();
@@ -125,7 +133,7 @@ public class BuyFoodController {
     public void delOrder(String orderId){
         Session session = getSession();
         Transaction tx = session.beginTransaction();
-        Query query = session.createQuery("delete from BeanBuyFood  b where b.BuyOrderId  = :orderid");
+        Query query = session.createQuery("delete from Buyfood  b where b.BuyOrderId  = :orderid");
         query.setParameter("orderid",orderId);
         query.executeUpdate();
         tx.commit();
@@ -133,7 +141,7 @@ public class BuyFoodController {
     public int getBuyOrderCount(Integer cate1){
         Session session = getSession();
         Transaction rx = session.beginTransaction();
-        Query query = session.createQuery("from BeanBuyFood b where b.status = :cate");
+        Query query = session.createQuery("from Buyfood b where b.status = :cate");
         query.setParameter("cate",cate1);
         int size = query.list().size();
         rx.commit();
@@ -143,3 +151,4 @@ public class BuyFoodController {
 
 
 }
+

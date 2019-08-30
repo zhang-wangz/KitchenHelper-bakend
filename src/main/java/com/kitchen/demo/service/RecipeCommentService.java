@@ -1,16 +1,15 @@
-package com.kitchen.demo.control;
+package com.kitchen.demo.service;
 
-import model.BeanRecipeComment;
-import model.BeanRecipematerials;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import java.util.List;
 
-import static util.HibernateUtil.getSession;
 
-public class RecipeCommentController {
+
+public interface RecipeCommentService {
     public List<BeanRecipeComment> loadRecipeCommentDetailByRecipeId(String orderId) {
         Session session = getSession();
         Transaction tx = session.beginTransaction();

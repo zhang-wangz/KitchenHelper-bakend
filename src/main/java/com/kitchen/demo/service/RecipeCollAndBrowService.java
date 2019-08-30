@@ -1,25 +1,11 @@
-package com.kitchen.demo.control;
+package com.kitchen.demo.service;
 
-import model.BeanRecipe;
-import model.BeanRecipeBrow;
-import model.BeanRecipeColl;
-import model.BeanRecipeComment;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import util.HibernateUtil;
-import util.HibernateUtil.*;
-import util.KitchenSystemUtil;
-
-import java.util.List;
-
-public class RecipeCollAndBrowController {
 
 
-
-
-
-
+public interface RecipeCollAndBrowService {
 
     public BeanRecipeBrow findrecipeBrowByBrIdandUsrId(String userId,String recipeId){
         Session session = HibernateUtil.getSession();
@@ -129,15 +115,15 @@ public class RecipeCollAndBrowController {
 
 
 
-    public static void main(String[] args) {
-        RecipeCollAndBrowController recipeCollAndBrowController = new RecipeCollAndBrowController();
-        RecipeController recipeController = new RecipeController();
-//        recipeCollAndBrowController.changeColSig("1","1566799194372454792");
-//      int b  = KitchenSystemUtil.recipeCollAndBrowController.findrecipeBrowByBrIdandUsrId("1","1566799194372454792");
-//        System.out.println(b.getBrowUserId());
-//        System.out.println(b);
-
-    }
+//    public static void main(String[] args) {
+//        RecipeCollAndBrowService recipeCollAndBrowController = new RecipeCollAndBrowService();
+//        RecipeService recipeController = new RecipeService();
+////        recipeCollAndBrowController.changeColSig("1","1566799194372454792");
+////      int b  = KitchenSystemUtil.recipeCollAndBrowController.findrecipeBrowByBrIdandUsrId("1","1566799194372454792");
+////        System.out.println(b.getBrowUserId());
+////        System.out.println(b);
+//
+//    }
 
 
 }

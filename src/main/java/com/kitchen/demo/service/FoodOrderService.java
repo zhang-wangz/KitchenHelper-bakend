@@ -1,21 +1,19 @@
-package com.kitchen.demo.control;
+package com.kitchen.demo.service;
 
 
-import model.BeanFoodOrder;
-import model.BeanOrderDetail;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
 import org.hibernate.query.Query;
-import util.BaseException;
-import util.KitchenSystemUtil;
 
-import java.util.ArrayList;
+//import util.KitchenSystemUtil;
+
 import java.util.List;
 
-import static util.HibernateUtil.getSession;
 
-public class FoodOrderController {
+public interface FoodOrderService {
+
     public List<BeanFoodOrder> loadAll(){
         List<BeanFoodOrder> lsit = null;
         Session session = getSession();
@@ -177,10 +175,10 @@ public class FoodOrderController {
         return size;
     }
 
-    public static void main(String[] args) {
-        BeanFoodOrder order = KitchenSystemUtil.foodOrderController.findOrderByUserId("wzw").get(0);
-        System.out.println(order.getOrderId());
-    }
+//    public static void main(String[] args) {
+//        BeanFoodOrder order = KitchenSystemUtil.foodOrderController.findOrderByUserId("wzw").get(0);
+//        System.out.println(order.getOrderId());
+//    }
 
 
 }

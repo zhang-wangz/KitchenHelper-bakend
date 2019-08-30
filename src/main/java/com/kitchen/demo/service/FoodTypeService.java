@@ -1,19 +1,17 @@
-package com.kitchen.demo.control;
+package com.kitchen.demo.service;
 
-import model.BeanFoodType;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
 import org.hibernate.query.Query;
-import util.BaseException;
-import util.KitchenSystemUtil;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static util.HibernateUtil.getSession;
 
-public class FoodTypeController {
+
+public interface FoodTypeService {
     public List<BeanFoodType> loadAll() {
         List<BeanFoodType> list = new ArrayList<BeanFoodType>();
         Session session = getSession();

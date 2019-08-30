@@ -1,18 +1,18 @@
-package com.kitchen.demo.control;
+package com.kitchen.demo.service;
 
-import model.BeanFoodInfo;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
 import org.hibernate.query.Query;
-import util.KitchenSystemUtil;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static util.HibernateUtil.getSession;
 
-public class FoodInfoController {
+
+public interface FoodInfoService {
 
     public BeanFoodInfo findFoodByName(String foodName){
         BeanFoodInfo foodInfo = new BeanFoodInfo();

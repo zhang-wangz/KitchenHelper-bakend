@@ -1,20 +1,17 @@
-package com.kitchen.demo.control;
+package com.kitchen.demo.service;
 
-import model.BeanMyUser;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
 import org.hibernate.query.Query;
-import util.BaseException;
-import util.KeyUtil;
+
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import static util.HibernateUtil.getSession;
-
-public class UserController {
+public interface UserService {
     public List<BeanMyUser> loadAll(){
         List<BeanMyUser> list = new ArrayList<BeanMyUser>();
         Session session = getSession();

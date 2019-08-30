@@ -1,17 +1,17 @@
-package com.kitchen.demo.control;
+package com.kitchen.demo.service;
 
-import model.BeanOperator;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import util.BaseException;
+
 
 import java.util.List;
 
 import static util.HibernateUtil.getSession;
 
 // login resetpwd sigup
-public class OperatorController {
+public interface OperatorService {
 
     public BeanOperator login(String username, String pwd) throws BaseException {
 
@@ -134,7 +134,7 @@ public class OperatorController {
             b.setOpLevel(1);
             b.setOpPwd("12345678");
             b.setOpName("amdin");
-            new OperatorController().addOperator(b);
+            new OperatorService().addOperator(b);
         }catch (BaseException e){
             System.out.println(e.getMessage());
         }

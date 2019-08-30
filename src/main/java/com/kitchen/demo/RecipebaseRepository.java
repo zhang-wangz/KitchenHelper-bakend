@@ -1,6 +1,5 @@
-package com.kitchen.demo.repo;
+package com.kitchen.demo;
 
-import com.kitchen.demo.model.BeanRecipe;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

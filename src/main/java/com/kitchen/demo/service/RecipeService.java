@@ -1,22 +1,18 @@
-package com.kitchen.demo.control;
+package com.kitchen.demo.service;
 
-import model.*;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Projections;
 import org.hibernate.query.Query;
-import util.BaseException;
-import util.KeyUtil;
-import util.KitchenSystemUtil;
 
-import java.security.Key;
+
 import java.util.List;
 
-import static util.HibernateUtil.getSession;
 
-public class RecipeController {
 
-    RecipeCollAndBrowController recipeCollAndBrowController =new RecipeCollAndBrowController();
+public interface RecipeService {
+
+    RecipeCollAndBrowService recipeCollAndBrowController =new RecipeCollAndBrowService();
 
 
     public List<BeanRecipematerials> loadRecipeDetailByRecipeId(String orderId) {
@@ -240,7 +236,7 @@ public class RecipeController {
     }
 
     public static void main(String[] args) throws BaseException {
-        RecipeController recipeController = new RecipeController();
+        RecipeService recipeController = new RecipeService();
 //        UserController userController = new UserController();
 //        BeanRecipe recipe = recipeController.findRecipeByRecipeId("1566799194372454792");
 //        BeanMyUser.currentUser = userController.findUserByName("wzw");

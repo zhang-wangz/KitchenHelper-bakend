@@ -1,4 +1,4 @@
-package com.kitchen.demo.control;
+package com.kitchen.demo.service;
 
 import model.BeanRecipe;
 import model.BeanRecipeStep;
@@ -14,7 +14,7 @@ import static util.HibernateUtil.getSession;
 
 
 
-public class RecipeStepController {
+public class RecipeStepService {
 
     public List<BeanRecipeStep> loadRecipeStepsByRecipeId(String orderId) {
         Session session = getSession();
@@ -87,8 +87,8 @@ public class RecipeStepController {
 
 
     public static void main(String[] args) throws BaseException {
-        RecipeStepController recipeStepController = new RecipeStepController();
-        BeanRecipeStep recipeStep = recipeStepController.findRecipeStepByRecipeIdandStepId("1566799194372454792",1);
-        recipeStepController.delRecipeStep(recipeStep);
+        RecipeStepService recipeStepService = new RecipeStepService();
+        BeanRecipeStep recipeStep = recipeStepService.findRecipeStepByRecipeIdandStepId("1566799194372454792",1);
+        recipeStepService.delRecipeStep(recipeStep);
     }
 }
