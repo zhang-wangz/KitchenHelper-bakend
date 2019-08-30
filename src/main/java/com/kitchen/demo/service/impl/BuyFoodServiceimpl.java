@@ -20,134 +20,69 @@ public class BuyFoodServiceimpl  implements BuyFoodService {
     private BuyfoodRepository buyfoodRepository;
 
     public List<Buyfood> loadBuyDetailByOrderId(String orderId) {
-        Session session = getSession();
-        Transaction tx = session.beginTransaction();
-        Query query = session.createQuery("from Buyfood b where b.BuyOrderId = :id");
-        query.setParameter("id", orderId);
-        List<Buyfood> list = query.list();
-        tx.commit();
-        session.close();
-        return list;
+
+        return buyfoodRepository.loadBuyDetailByOrderId(orderId);
     }
+
 
     public  List<Buyfood> findOrderById(String id) throws BaseException {
 
-        Session session = getSession();
-        Transaction tx = session.beginTransaction();
-        Query query = session.createQuery("from Buyfood b where b.BuyOrderId = :id");
-        query.setParameter("id", id);
-        if(query.list().size()==0){
-            throw new BaseException("�ɹ���������");
-        }
-        List<Buyfood> order  = query.list();
-        tx.commit();
-        session.close();
-        return  order;
+
+        return  buyfoodRepository.findOrderById(id);
     }
 
     public  List<Buyfood> findBuyOrderByFoodId(String foodid){
 
-        Session session = getSession();
-        Transaction tx = session.beginTransaction();
-        Query query = session.createQuery("from Buyfood b where b.foodId = :id");
-        query.setParameter("id", foodid);
-        if(query.list().size()==0) return null;
-
-        List<Buyfood> order  = query.list();
-        tx.commit();
-        session.close();
-        return  order;
+        return  findBuyOrderByFoodId(foodid);
 
     }
 
 
 
     public List<Buyfood> loadDetailByOrderId(String orderId) {
-        Session session = getSession();
-        Transaction tx = session.beginTransaction();
-        Query query = session.createQuery("from Buyfood b where b.BuyOrderId = :id");
-        query.setParameter("id", orderId);
-        List<Buyfood> list = query.list();
-        tx.commit();
-        session.close();
-        return list;
+
+        return loadBuyDetailByOrderId(orderId);
     }
 
     @Override
     public void delOrderDetail(Buyfood detail) {
-        Session session = getSession();
-        Transaction tx = session.beginTransaction();
-        Query query = session.createQuery("delete Buyfood b where b.foodId = :foodId and b.BuyOrderId = :orderId");
-        query.setParameter("foodId", detail.getFoodId());
-        query.setParameter("orderId", detail.getBuyOrderId());
-        query.executeUpdate();
-
-        tx.commit();
-        session.close();
+        buyfoodRepository.deleteBuyfoodsByBuyOrderIdAndAndFoodId(detail.getFoodId(),detail.getBuyOrderId());
     }
 
 
     public void cancelOrderDetail(Buyfood detail) {
 
-        Session session = getSession();
-        Transaction tx = session.beginTransaction();
-        Query query = session.createQuery("delete from  Buyfood b where b.foodId = :foodId and b.BuyOrderId = :orderId");
-        query.setParameter("foodId", detail.getFoodId());
-        query.setParameter("orderId", detail.getBuyOrderId());
-        query.executeUpdate();
+        buyfoodRepository.deleteBuyfoodsByBuyOrderIdAndAndFoodId(detail.getFoodId(),detail.getBuyOrderId());
+        buyfoodRepository.updateFoodInfoByFoodId(detail.getNum(),detail.getFoodId());
 
-        query = session.createQuery("update BeanFoodInfo b set b.foodNum = b.foodNum -:num where foodId =:foodId");
-        query.setParameter("num",detail.getNum());
-        query.setParameter("foodId",detail.getFoodId());
-
-        query.executeUpdate();
-
-        tx.commit();
-        session.close();
     }
 
 
     public List<Buyfood> loadAll(){
-        List<Buyfood> lsit = null;
-        Session session = getSession();
-        Transaction tx = session.beginTransaction();
-        Query query = session.createQuery("from Buyfood ");
-        lsit = query.list();
-        tx.commit();
-        session.close();
-        return lsit;
+
+        return buyfoodRepository.findAll();
     }
 
     public List<String> loadAllOnlyOne(){
-        List<String> lsit = null;
-        Session session = getSession();
-        Transaction tx = session.beginTransaction();
-        Query query = session.createSQLQuery("select distinct buy_order_id from buyfood");
-        lsit = query.list();
-        tx.commit();
-        session.close();
-        return lsit;
+
+        return buyfoodRepository.loadAllOnlyOne();
     }
 
 
     public void delOrder(String orderId){
-        Session session = getSession();
-        Transaction tx = session.beginTransaction();
-        Query query = session.createQuery("delete from Buyfood  b where b.BuyOrderId  = :orderid");
-        query.setParameter("orderid",orderId);
-        query.executeUpdate();
-        tx.commit();
+
+        buyfoodRepository.deleteBuyfoodByBuyOrderId(orderId);
     }
     public int getBuyOrderCount(Integer cate1){
-        Session session = getSession();
-        Transaction rx = session.beginTransaction();
-        Query query = session.createQuery("from Buyfood b where b.status = :cate");
-        query.setParameter("cate",cate1);
-        int size = query.list().size();
-        rx.commit();
-        session.close();
-        return size;
+        return  buyfoodRepository.getBuyOrderCount(cate1);
     }
+
+    public static void main(String[] args) {
+        BuyFoodServiceimpl buyFoodServiceimpl = new BuyFoodServiceimpl();
+        List<Buyfood> list = buyFoodServiceimpl.loadAll();
+        System.out.println(list.size());
+    }
+
 
 
 }

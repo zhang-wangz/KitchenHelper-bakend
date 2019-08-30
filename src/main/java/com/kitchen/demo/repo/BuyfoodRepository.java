@@ -36,10 +36,30 @@ public interface BuyfoodRepository extends JpaRepository<Buyfood, String>, JpaSp
 
     @Modifying
     @Query(value = "delete from Buyfood b where b.foodId = :foodId and b.BuyOrderId = :orderId")
-    void deleteBuyfoodsByBuyOrderIdAndAndFoodId();
+    void deleteBuyfoodsByBuyOrderIdAndAndFoodId(@Param("foodId")String foodId,@Param("orderId")String orderId);
 
     @Modifying
     @Query(value = "update FoodInfo b set b.foodNum = b.foodNum -:num where foodId =:foodId")
-    void updateFoodInfoByFoodId();
+    void updateFoodInfoByFoodId(@Param("num")Integer num,@Param("foodId")String foodId);
+
+    List<Buyfood> findAll();
+
+
+    @Modifying
+    @Query("select distinct buyOrderId from Buyfood")
+    List<String> loadAllOnlyOne();
+
+    void deleteBuyfoodByBuyOrderId(String orderId);
+
+
+    @Modifying
+    @Query(value = "from Buyfood b where b.status = :cate")
+    int getBuyOrderCount(@Param("cate") Integer cate1);
+
+
+
+
+
+
 
 }
