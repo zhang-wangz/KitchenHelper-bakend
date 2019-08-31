@@ -6,7 +6,7 @@ KitchenHelper-bakend
 - 接口文档:https://www.showdoc.cc/wz745268436?page_id=2831031150611613
 
 ---------
-- update 8.31
+update 8.31
  
- 1.完成 jwt认证
- 2.完成用户登录+采购单
+- 1.完成 jwt认证
+- 2.完成用户登录+采购单
