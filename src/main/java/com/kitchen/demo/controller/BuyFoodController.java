@@ -1,11 +1,14 @@
 package com.kitchen.demo.controller;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.kitchen.demo.model.Buyfood;
 import com.kitchen.demo.service.BuyFoodService;
 import com.kitchen.demo.util.ResultUtil;
 import com.kitchen.demo.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +35,15 @@ public class BuyFoodController {
         }
         return ResultUtil.success(list);
     }
+
+//    @GetMapping("/test")
+//    public com.alibaba.fastjson.JSONObject search() throws JSONException {
+//        com.alibaba.fastjson.JSONObject jsonObject = new JSONObject();
+//        jsonObject.put("id","sdasd");
+//        jsonObject.put("sda","sdasda");
+//        return  jsonObject;
+//
+//    }
 
 
     @GetMapping("/load_buy_detail_by_order_id")
