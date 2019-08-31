@@ -34,8 +34,10 @@ public class UserConntroller {
         }
 
         // Create Twt token
-        String jwtToken = Jwts.builder().setSubject(userName)
+        String jwtToken = Jwts.builder()
+                .setSubject(userName)
                 .claim("userPwd", pwd)
+                .claim("date",new Date())
                 .setIssuedAt(new Date())
                 .signWith(SignatureAlgorithm.HS256, "kitchen1191")
                 .setExpiration(new Date(System.currentTimeMillis() + 86400))
@@ -44,7 +46,7 @@ public class UserConntroller {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("code",0);
         jsonObject.put("msg","login success");
-        jsonObject.put("data",jwtToken);
+        jsonObject.put("token",jwtToken);
         return jsonObject;
     }
 
