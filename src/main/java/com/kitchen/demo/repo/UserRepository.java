@@ -2,8 +2,13 @@ package com.kitchen.demo.repo;
 
 import com.kitchen.demo.model.MyUser;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface UserRepository extends JpaRepository<MyUser,String> {
 
     MyUser findMyUserByUserId(String userId);
+
+    MyUser findMyUserByUserName(String userName);
 }

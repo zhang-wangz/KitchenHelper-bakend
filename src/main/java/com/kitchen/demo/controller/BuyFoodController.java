@@ -36,15 +36,6 @@ public class BuyFoodController {
         return ResultUtil.success(list);
     }
 
-//    @GetMapping("/test")
-//    public com.alibaba.fastjson.JSONObject search() throws JSONException {
-//        com.alibaba.fastjson.JSONObject jsonObject = new JSONObject();
-//        jsonObject.put("id","sdasd");
-//        jsonObject.put("sda","sdasda");
-//        return  jsonObject;
-//
-//    }
-
 
     @GetMapping("/load_buy_detail_by_order_id")
     public  ResultVO<List<Buyfood>> loadBuyDetailByOrderId(@RequestParam(value = "orderid") String orderId){

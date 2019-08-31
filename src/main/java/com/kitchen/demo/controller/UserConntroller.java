@@ -2,12 +2,16 @@ package com.kitchen.demo.controller;
 
 
 import com.alibaba.fastjson.JSONObject;
+import com.kitchen.demo.model.MyUser;
 import com.kitchen.demo.repo.UserRepository;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.repository.query.Param;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.ServletException;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/user")
@@ -17,12 +21,32 @@ public class UserConntroller {
     private UserRepository userRepository;
 
     @PostMapping("/login")
-    public JSONObject doLogin(@RequestParam("userId")String userId,@RequestParam("pwd")String userpwd){
+    public JSONObject login(@RequestParam("userName") String userName, @RequestParam("pwd") String pwd) throws ServletException {
+        // Check if username and password is null
+        if (userName.equals("") || userName == null
+                || userName.equals("") || pwd == null)
+            throw new ServletException("Please fill in username and password");
 
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("code",0);
-            jsonObject.put("login","success login");
-            jsonObject.put("id",userId);
-            return  jsonObject;
+        // Check if the username is used
+        MyUser  myUser = userRepository.findMyUserByUserName(userName);
+        if(myUser == null || !pwd.equals(myUser.getPwd())){
+            throw new ServletException("Please fill in username and password correctly");
+        }
+
+        // Create Twt token
+        String jwtToken = Jwts.builder().setSubject(userName)
+                .claim("userPwd", pwd)
+                .setIssuedAt(new Date())
+                .signWith(SignatureAlgorithm.HS256, "kitchen1191")
+                .setExpiration(new Date(System.currentTimeMillis() + 86400))
+                .compact();
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("code",0);
+        jsonObject.put("msg","login success");
+        jsonObject.put("data",jwtToken);
+        return jsonObject;
     }
+
 }
+

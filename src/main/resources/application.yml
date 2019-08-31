@@ -1,8 +1,21 @@
+
+
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: 123456
-    url: jdbc:mysql://localhost:3306/kitchen?characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://localhost:3306/kitchen1?characterEncoding=utf-8&useSSL=false
   jpa:
     show-sql: true
+
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+
+
+
+
+
+
+
