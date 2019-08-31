@@ -13,7 +13,6 @@ public class JwtCfg {
         final FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(new JwtFilter());
         registrationBean.addUrlPatterns("/buyFood/*");
-
         return registrationBean;
     }
 

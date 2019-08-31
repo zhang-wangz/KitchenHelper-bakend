@@ -6,6 +6,7 @@ import lombok.Data;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 
@@ -40,4 +41,6 @@ public class MyUserDTO {
     private Timestamp registerDate;
 
     private List<Role> roles;
+
+    public static Date date;
 }

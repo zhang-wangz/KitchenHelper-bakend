@@ -22,9 +22,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/buyFood")
 public class BuyFoodController {
+
     @Autowired
     private BuyFoodService buyFoodService;
-
 
     @GetMapping("/findAll")
     public ResultVO<List<Buyfood>> find() {
