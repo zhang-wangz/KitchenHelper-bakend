@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import com.kitchen.demo.model.Recipecomment;
 
-public interface RecipecommentRepository extends JpaRepository<Recipecomment, RecipecommentId>, JpaSpecificationExecutor<Recipecomment> {
+import java.util.List;
 
+public interface RecipecommentRepository extends JpaRepository<Recipecomment, RecipecommentId>, JpaSpecificationExecutor<Recipecomment> {
+    List<Recipecomment> findRecipecommentByRecipeId(String recipeId);
 }
